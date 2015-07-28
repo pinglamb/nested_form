@@ -82,8 +82,10 @@ module NestedForm
         options = args[0].dup.extract_options!
       end
 
-      @fields ||= {}
-      @fields[fields_blueprint_id_for(association_name)] = { :block => block, :options => options }
+      unless options[:skip].present?
+        @fields ||= {}
+        @fields[fields_blueprint_id_for(association_name)] = { :block => block, :options => options }
+      end
       super(association_name, *(args << block))
     end
 
